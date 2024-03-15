@@ -1,0 +1,57 @@
+{% extends 'file_checker/base.html' %}
+
+{% block content %}
+
+    <h3>以下の入力フォームより、リクエストしたいイメージのパスを入力してください。</h3>
+    <form action="{% url 'file_checker:ai_analysis_register' %}" method="post">
+      {% csrf_token %}
+      <input type="text" name="image_path" style="width:30rem" required>
+      <input type="submit" value="送信">
+    </form>
+
+    {% if ai_analysis_logs %}
+      <h3 style="margin-top:3rem">リクエスト結果リスト</h3>
+      <table border="1" cellpadding="6" cellspacing="0">
+        <tr>
+          <th>リクエストタイム</th><th>ステータス</th><th>メッセージ</th><th style="width:50rem">イメージパス</th>
+        </tr>
+        {% for ai_analysis_log in ai_analysis_logs %}
+          <tr>
+            <td>{{ ai_analysis_log.request_timestamp|date:"Y/n/j H:i:s" }}</td>
+            <td>{{ ai_analysis_log.success }}</td>
+            <td>{{ ai_analysis_log.message }}</td>
+            <td>
+              <a href="{% url 'file_checker:detail' ai_analysis_log.id %}">{{ ai_analysis_log.image_path }}</a>
+            </td>
+          </tr>
+        {% endfor %}    
+      </table>
+
+    {% else %}
+      <p>ai_analysis_logにデータがありませんでした。</p>
+    {% endif %}
+
+    <!-- ページネーション用のUI -->
+    <div class="pagination">
+      <span class="step-links">
+          {% if page_obj.has_previous %}
+              <!-- 現在よりも前のページが存在する場合 -->
+              <a href="?page=1">&laquo; 先頭</a>
+              <a href="?page={{ page_obj.previous_page_number }}">前へ</a>
+          {% endif %}
+
+          <span class="current">
+              <!-- 現在のページ番号と、全ページ数を表示 -->
+              {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}.
+          </span>
+
+          {% if page_obj.has_next %}
+              <!-- 現在よりも後のページが存在する場合 -->
+              <a href="?page={{ page_obj.next_page_number }}">次へ</a>
+              <a href="?page={{ page_obj.paginator.num_pages }}">最後 &raquo;</a>
+          {% endif %}
+      </span>
+  </div>
+
+
+{% endblock %}

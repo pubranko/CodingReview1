@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  prism:
+    image: stoplight/prism:latest
+    command: mock -h 0.0.0.0 /response.yaml
+    ports:
+      - "4010:4010"
+    volumes:
+      - ./prism_api_test_data/response.yaml:/response.yaml
+

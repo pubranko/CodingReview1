@@ -1,0 +1,42 @@
+openapi: '3.0.2'
+info:
+  title: API Title
+  version: '1.0'
+servers:
+  - url: https://api.server.test
+  # - url: localhost
+paths:
+  /get-test:
+    get:
+      responses:
+        '200':
+          description: OK
+  /post-test:
+    post:
+      parameters:
+        - name: image_path
+          in: query
+          schema:
+            type: string
+      responses:
+        # 正常データを返す場合
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                success: true
+                message: success
+                estimated_data:
+                  class: 3
+                  confidence: 0.8683
+        
+        # エラーデータを返す場合
+        # '400':
+        #   description: Bad Request
+        #   content:
+        #     application/json:
+        #       example:
+        #         success: false
+        #         message: Error:E50012
+        #         estimated_data: {}

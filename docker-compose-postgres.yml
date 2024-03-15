@@ -1,0 +1,20 @@
+version: '3.1'
+##############################################
+# 本番環境用(tls指定あり)
+##############################################
+services:
+
+    postgres:
+        image: postgres:latest
+        container_name: postgres
+        # restart: always
+        ports:
+            - "5432:5432"
+        networks:
+            - default
+        # volumes:
+        #     - 使い捨てであるためボリュームは省略
+        environment:
+            POSTGRES_PASSWORD: postgres
+
+

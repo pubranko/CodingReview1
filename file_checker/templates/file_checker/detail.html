@@ -1,0 +1,49 @@
+{% extends 'file_checker/base.html' %}
+
+{% block content %}
+
+<h3 style="margin-top:3rem">リクエスト結果詳細</h3>
+<table border="1" cellpadding="6" cellspacing="0">
+    <tr>
+        <th>項目名</th><th>値</th>
+    </tr>
+    <tr>
+        <td>image_path</td><td>{{ aianalysislog.image_path }}</td>
+    </tr>
+    <tr>
+        <td>success</td><td>{{ aianalysislog.success }}</td>
+    </tr>
+    <tr>
+        <td>message</td><td>{{ aianalysislog.message }}</td>
+    </tr>
+    <tr>
+        <td>class</td>
+        <td>
+            {% if aianalysislog.class_field %}
+                {{ aianalysislog.class_field }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td>confidence</td>
+        <td>
+            {% if aianalysislog.confidence %}
+                {{ aianalysislog.confidence }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td>request_timestamp</td><td>{{ aianalysislog.request_timestamp|date:"Y/n/j H:i:s" }}</td>
+    </tr>
+    <tr>
+        <td>response_timestamp</td><td>{{ aianalysislog.response_timestamp|date:"Y/n/j H:i:s" }}</td>
+    </tr>
+</table>
+
+<div style="margin-top:2rem">
+    <a href="{% url 'file_checker:index' %}">
+        TOPページへ戻る
+    </a>
+</div>
+
+{% endblock %}
