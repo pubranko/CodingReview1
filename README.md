@@ -30,12 +30,6 @@
 - prism_api_test_data/response.yaml
 - 上記ファイルのレスポンス値を手動で正常・エラーを切り替えることでレスポンスを制御
 
-### Djangoプロジェクト作成
-- django-admin startproject api_tester .
-
-### Djangoアプリ追加
-- python manage.py startapp file_checker
-
 ### 初回マイグレーション
 - python manage.py migrate
 
@@ -54,4 +48,4 @@
 
 ## unit-test
 ### viewのテストを実装しています。modelのテストは今回不要と判断し見送り。
-python manage.py test file_checker
+- python manage.py test file_checker
